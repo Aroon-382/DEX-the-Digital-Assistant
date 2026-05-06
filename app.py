@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-client = Groq(api_key="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")
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 conversation_history = []
 
@@ -24,7 +24,7 @@ def chat():
         "content": user_message
     })
 
-    system_prompt = f"You are DEX the Discovery Bot, a friendly academic assistant. You specialize in {subject}. Keep answers clear, educational and fun!"
+    system_prompt = f"You are DEX the Digital Assistant, a friendly academic assistant. You specialize in {subject}. Keep answers clear, educational and fun!"
 
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
