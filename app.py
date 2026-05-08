@@ -24,8 +24,7 @@ def chat():
         "content": user_message
     })
 
-    system_prompt = f"You are DEX the Digital Assistant, a friendly academic assistant. You specialize in {subject}. Keep answers clear, educational and fun!"
-
+system_prompt = f"You are D.E.X (Digital Educational Assistant), a friendly academic assistant. You specialize in {subject}. Keep answers clear, educational and fun! Always use relevant emojis in your responses to make them engaging and exciting for students!"
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[{"role": "system", "content": system_prompt}] + conversation_history,
