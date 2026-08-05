@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 from groq import Groq
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 app = Flask(__name__)
 
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-
-conversation_history = []
 
 @app.route("/")
 def home():
@@ -24,7 +25,8 @@ def chat():
         "content": user_message
     })
 
-system_prompt = f"You are D.E.X (Digital Educational Assistant), a friendly academic assistant. You specialize in {subject}. Keep answers clear, educational and fun! Always use relevant emojis in your responses to make them engaging and exciting for students!"
+    system_prompt = f"You are D.E.X (Digital Educational Assistant), a friendly academic assistant. You specialize in {subject}. Keep answers clear, educational and fun! Always use relevant emojis in your responses to make them engaging and exciting for students!"
+
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[{"role": "system", "content": system_prompt}] + conversation_history,
